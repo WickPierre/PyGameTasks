@@ -1,4 +1,5 @@
 import pygame
+import sys
 from upload_image import load_image
 
 pygame.init()
@@ -105,8 +106,12 @@ def move(player, move):
 
 if __name__ == '__main__':
     start_screen()
-    level_map = load_level('map.map')
-    player, level_x, level_y = generate_level(load_level('map.map'))
+    try:
+        level_map = load_level(input())
+    except FileNotFoundError:
+        print("Такой карты не существует")
+        sys.exit()
+    player, level_x, level_y = generate_level(level_map)
     running = True
     while running:
         for event in pygame.event.get():
